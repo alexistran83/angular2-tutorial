@@ -1,2 +1,3 @@
-Compte utilisateur
-<button type="button" class="btn btn-primary" (click)="logout()">Déconnexion</button>
+<div *ngIf="user">
+  {{user.firstname}} {{user.lastname}}
+</div>

@@ -9,18 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var user_service_1 = require('../../services/user/user.service');
 var router_1 = require('@angular/router');
+var user_service_1 = require('../../services/user/user.service');
 var AccountComponent = (function () {
     function AccountComponent(userService, router) {
         this.userService = userService;
         this.router = router;
     }
+    AccountComponent.prototype.ngOnInit = function () {
+        // reset login status
+        this.user = this.userService.getLoggedInUser();
+    };
     AccountComponent.prototype.logout = function () {
         var _this = this;
         this.userService.logout()
             .then(function (resolve) {
             _this.router.navigate(['/home']);
+        })
+            .catch(function () {
+            console.log("error");
         });
     };
     AccountComponent = __decorate([

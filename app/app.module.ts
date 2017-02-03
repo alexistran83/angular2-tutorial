@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -33,6 +34,7 @@ import { AuthGuard } from './guards/auth/auth.guard';
         FormsModule,
         HttpModule,
         NgbModule.forRoot(),
+        MaterialModule.forRoot(),
         AppRoutingModule,
         InMemoryWebApiModule.forRoot(InMemoryDataService)
     ],

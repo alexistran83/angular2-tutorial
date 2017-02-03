@@ -4,8 +4,8 @@ var InMemoryDataService = (function () {
     }
     InMemoryDataService.prototype.createDb = function () {
         var users = [
-            { id: 1, firstname: 'admin', lastname: 'admin', login: 'admin', password: 'password', email: 'admin.admin@tuto.com' },
-            { id: 2, firstname: 'user', lastname: 'user', login: 'user', password: 'password', email: 'user.user@tuto.com' }
+            { id: 1, firstname: 'admin', lastname: 'admin', login: 'admin', password: 'password', email: 'admin.admin@tuto.com', role: 'admin' },
+            { id: 2, firstname: 'user', lastname: 'user', login: 'user', password: 'password', email: 'user.user@tuto.com', role: 'user' }
         ];
         return { users: users };
     };

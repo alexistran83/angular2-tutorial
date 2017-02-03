@@ -1,0 +1,20 @@
+.pointer {
+  cursor: pointer;
+}
+
+.kine-web-container {
+  padding: 0.5rem 0;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+input,
+button,
+select,
+textarea {
+ font-family: inherit;
+ font-size: inherit;
+ line-height: inherit;
+}

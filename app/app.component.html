@@ -15,11 +15,14 @@
       </div>
       <div class="navbar-nav pull-right">
         <a class="nav-item nav-link" routerLink="/account" routerLinkActive="active">Mon Compte</a>
+        <a class="nav-item nav-link pointer" (click)="logout()" *ngIf="showLogoutBtn()">Déconnexion</a>
       </div>
     </div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="container-fluid kine-web-container">
+  <router-outlet></router-outlet>
+</div>
 
 <footer>
 </footer>

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/toPromise');
+var user_1 = require('../../model/user');
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
@@ -18,11 +19,12 @@ var UserService = (function () {
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     UserService.prototype.login = function (login, password) {
+        var _this = this;
         var url = this.usersUrl + "/?login=" + login + "&password=" + password;
         return this.http.get(url)
             .toPromise()
             .then(function (response) {
-            var user = response.json().data;
+            var user = _this.toUser(response.json().data[0]);
             if (user) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
@@ -31,11 +33,29 @@ var UserService = (function () {
         })
             .catch(this.handleError);
     };
+    UserService.prototype.toUser = function (json) {
+        var user = new user_1.User();
+        user.id = json.id;
+        user.firstname = json.firstname;
+        user.lastname = json.lastname;
+        user.email = json.email;
+        user.role = json.role;
+        return user;
+    };
     UserService.prototype.logout = function () {
         return new Promise(function (resolve) {
             // remove user from local storage to log user out
             localStorage.removeItem('currentUser');
+            resolve();
         });
+    };
+    UserService.prototype.isLoggedIn = function () {
+        return localStorage.getItem('currentUser') != null;
+    };
+    UserService.prototype.getLoggedInUser = function () {
+        if (this.isLoggedIn()) {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
     };
     UserService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only

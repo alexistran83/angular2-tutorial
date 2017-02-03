@@ -20,7 +20,7 @@ export class UserService {
         return this.http.get(url)
             .toPromise()
             .then(response => {
-              let user = response.json().data;
+              let user = this.toUser(response.json().data[0]);
               if (user) {
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
                   localStorage.setItem('currentUser', JSON.stringify(user));
@@ -30,11 +30,33 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    private toUser(json: any) : User {
+      let user = new User();
+      user.id = json.id;
+      user.firstname = json.firstname;
+      user.lastname = json.lastname;
+      user.email = json.email;
+      user.role = json.role;
+
+      return user;
+    }
+
     logout() : Promise<any> {
       return new Promise(resolve => {
           // remove user from local storage to log user out
           localStorage.removeItem('currentUser');
+          resolve();
       });
+    }
+
+    isLoggedIn() : boolean {
+      return localStorage.getItem('currentUser') != null;
+    }
+
+    getLoggedInUser() : User {
+      if(this.isLoggedIn()) {
+        return JSON.parse(localStorage.getItem('currentUser'));
+      }
     }
 
     private handleError(error: any): Promise<any> {

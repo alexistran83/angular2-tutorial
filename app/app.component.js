@@ -9,9 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var user_service_1 = require('./services/user/user.service');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(userService, router) {
+        this.userService = userService;
+        this.router = router;
     }
+    AppComponent.prototype.logout = function () {
+        var _this = this;
+        this.userService.logout()
+            .then(function (resolve) {
+            _this.router.navigate(['/home']);
+        });
+    };
+    AppComponent.prototype.showLogoutBtn = function () {
+        return this.userService.isLoggedIn();
+    };
     AppComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
@@ -19,7 +33,7 @@ var AppComponent = (function () {
             templateUrl: './app.component.html',
             styleUrls: ['./app.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [user_service_1.UserService, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());
